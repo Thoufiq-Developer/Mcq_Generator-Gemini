@@ -1,0 +1,4 @@
+MCQ,Choice,Correct
+What is the defining characteristic of 'deep' learning in the context of neural networks?,"a:Use of a single, large neuron|b:Employing multiple layers of artificial neurons|c:Focusing solely on supervised learning methods|d:Exclusively using recurrent neural network architectures",b
+Which of the following is NOT mentioned as a common deep learning network architecture in the provided text?,a:Convolutional Neural Networks (CNNs)|b:Recurrent Neural Networks (RNNs)|c:Support Vector Machines (SVMs)|d:Generative Adversarial Networks (GANs),c
+"According to the text, how do current neural networks relate to the biological function of the human brain?",a:They are highly accurate models of brain function.|b:They are inspired by biological systems but are not considered high-quality models of brain function.|c:They have no relation to biological systems.|d:They perfectly replicate the complexity of the human brain.,b
