@@ -2,7 +2,6 @@ import os
 import json
 import pandas as pd 
 
-
 from pathlib import Path
 from dotenv import load_dotenv
 from langchain.chains import LLMChain
@@ -15,9 +14,7 @@ from src.mcqgenerator.utils import read_file,get_table_data
 load_dotenv()
 key=os.getenv('google_api_key')
 
-
 llm=ChatGoogleGenerativeAI(model="gemini-1.5-flash",temperature=0.1,google_api_key=key)
-
 
 TEMPLATE='''
 TEXT:{text}
@@ -52,7 +49,6 @@ quiz_evaluation_template=PromptTemplate(input_variables=["subject","quiz"],templ
 quiz_evaluation_chain=LLMChain(llm=llm,prompt=quiz_evaluation_template,output_key="review",verbose=False)
 connection_chain=SequentialChain(chains=[chain,quiz_evaluation_chain],input_variables=["text","number","subject","tone","response_json"],output_variables=["quiz","review"],verbose=False)
 
-
 def estimate_gemini_token_usage(prompt_inputs: dict, model_outputs: dict = None) -> int:
     input_tokens = 0
     for key, value in prompt_inputs.items():
@@ -75,6 +71,7 @@ def estimate_gemini_token_usage(prompt_inputs: dict, model_outputs: dict = None)
     return input_tokens + output_tokens
 
 
-
  
      
+
+
