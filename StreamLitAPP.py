@@ -18,7 +18,6 @@ key=os.getenv('google_api_key')
 st.title('🔭🔭 MCQ Creator application with langchain') 
 st.write("This application generates MCQs from the provided text or PDF file using LangChain and Gemini's flash 2.5 model.")
 
-
 with st.form("user input"):
     user_input=st.file_uploader("upload the file here")
     number=st.number_input("Enter the number of MCQs to generate:", min_value=1, max_value=50)
