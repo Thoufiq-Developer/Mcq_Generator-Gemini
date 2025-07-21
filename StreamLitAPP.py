@@ -1,42 +1,39 @@
 import os
 import json
 import traceback
-from pathlib import Path
 import pandas as pd
 import streamlit as st
+
 from dotenv import load_dotenv
-
+from pathlib import Path
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.callbacks import get_openai_callback
-
-
 from src.mcqgenerator.utils import read_file, get_table_data
-from src.mcqgenerator.mcqgenerator import connection_chain, estimate_gemini_token_usage
+from src.mcqgenerator.mcqgenerator import connection_chain,estimate_gemini_token_usage
 from src.mcqgenerator.logger import logging
 
-# Load Gemini API key
 load_dotenv()
-key = os.getenv("google_api_key")
+key=os.getenv('google_api_key')
 
-# UI Setup
-st.title('📘 MCQ Creator App with Gemini & LangChain')
-st.write("Upload a .txt or .pdf file, and get high-quality MCQs.")
+st.title('🔭🔭 MCQ Creator application with langchain') 
+st.write("This application generates MCQs from the provided text or PDF file using LangChain and Gemini's flash 2.5 model.")
 
-# File Upload Form
-with st.form("user_input"):
-    user_input = st.file_uploader("Upload the file here (.txt or .pdf)", type=["txt", "pdf"])
-    number = st.number_input("Number of MCQs:", min_value=1, max_value=50)
-    subject = st.text_input("Subject:", max_chars=20)
-    tone = st.text_input("Tone (e.g., simple, intermediate, complex):")
-    button = st.form_submit_button("Generate MCQs")
 
-    if button and user_input and subject and tone:
-        with st.spinner("Generating MCQs..."):
+with st.form("user input"):
+    user_input=st.file_uploader("upload the file here")
+    number=st.number_input("Enter the number of MCQs to generate:", min_value=1, max_value=50)
+    subject=st.text_input("Insert Subject ", max_chars=50)
+    tone=st.text_input("complexity level of the quiz :simple, intermediate, complex")
+    button=st.form_submit_button("Generate MCQs")
+
+    if button and user_input is not None and number and subject and tone:
+        with st.spinner("loading..."):
             try:
                 text = read_file(user_input)
                 with open("Response.json", "r") as f:
                     RESPONSE_JSON = json.load(f)
 
-                with  get_openai_callback() as cb:
+                with get_openai_callback() as cb:
                     response = connection_chain.invoke({
                         "text": text,
                         "number": number,
